@@ -31,39 +31,51 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(S.of(context).title),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("User Name"),
-              accountEmail: Text("user@example.com"),
-              currentAccountPicture: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => EditProfileScreen()),
-                  );
-                },
-                child: CircleAvatar(
-                  backgroundImage: AssetImage("assets/profile_picture.png"),
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text(S.of(context).contacts),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ContactsScreen()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: buildDrawer(context), // Pass context to buildDrawer
       body: Center(
         child: Text(S.of(context).message),
       ),
+    );
+  }
+
+  Widget buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: <Widget>[
+          buildUserAccountsDrawerHeader(),
+          buildListTile(context), // Pass context to buildListTile
+        ],
+      ),
+    );
+  }
+
+  UserAccountsDrawerHeader buildUserAccountsDrawerHeader() {
+    return UserAccountsDrawerHeader(
+      accountName: Text("Jeanine"),
+      accountEmail: Text("iradukundajeanine@.com"),
+      currentAccountPicture: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => EditProfileScreen()),
+          );
+        },
+        child: CircleAvatar(
+          backgroundImage: AssetImage("assets/profile_picture.png"),
+        ),
+      ),
+    );
+  }
+
+  ListTile buildListTile(BuildContext context) {
+    return ListTile(
+      title: Text(S.of(context).contacts),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ContactsScreen()),
+        );
+      },
     );
   }
 }
